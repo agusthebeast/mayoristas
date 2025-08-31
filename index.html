@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SYX Mayoristas</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <img id="logo" src="media/logo.png" alt="SYX" />
+      <h1>Mayoristas</h1>
+    </div>
+    <div class="search">
+      <input id="searchInput" type="search" placeholder="Buscar por nombre o código..." />
+    </div>
+    <button id="cartBtn" class="cart-btn">🛒 <span id="cartCount">0</span></button>
+  </header>
+
+  <section class="hero">
+    <div class="hero-slider" id="heroSlider"></div>
+  </section>
+
+  <main class="container">
+    <section>
+      <h2>Categorías</h2>
+      <div id="catGrid" class="grid cats"></div>
+    </section>
+
+    <section id="subcatsSection" class="hidden">
+      <h2 id="subcatsTitle">Subcategorías</h2>
+      <div id="subcatGrid" class="grid subcats"></div>
+    </section>
+
+    <section>
+      <h2>Productos</h2>
+      <div id="productsGrid" class="grid products"></div>
+    </section>
+  </main>
+
+  <!-- Carrito / Checkout -->
+  <aside id="cartPanel" class="cart-panel hidden">
+    <div class="cart-header">
+      <h3>Tu pedido</h3>
+      <button id="closeCart">×</button>
+    </div>
+    <div id="cartItems" class="cart-items"></div>
+    <div class="cart-footer">
+      <div class="totals">
+        <span>Items: <b id="totalItems">0</b></span>
+        <span>Total: <b id="totalMonto">$0</b></span>
+      </div>
+      <button id="checkoutBtn" class="primary">Enviar pedido</button>
+    </div>
+  </aside>
+
+  <!-- Modal Checkout -->
+  <div id="checkoutModal" class="modal hidden">
+    <div class="modal-content">
+      <h3>Datos del comprador</h3>
+      <label>CUIT/DNI <input id="cuit_dni" required /></label>
+      <label>Razón social <input id="razon_social" required /></label>
+      <label>Email <input id="email" type="email" required /></label>
+      <label>Celular <input id="celular" placeholder="11 2749 4568" required /></label>
+      <label>Descripción <textarea id="descripcion" placeholder="Mensaje opcional..."></textarea></label>
+      <div class="actions">
+        <button id="sendOrder" class="primary">Confirmar pedido</button>
+        <button id="cancelCheckout" class="ghost">Cancelar</button>
+      </div>
+      <p class="small">Precios finales con IVA incluido.</p>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
