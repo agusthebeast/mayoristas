@@ -1,75 +1,118 @@
 <!DOCTYPE html>
-<button id="closeCart" class="btn ghost" style="padding:8px 10px">✕</button>
-</div>
-<div class="panel-body" id="cartItems"></div>
-<div class="panel-ftr">
-<div><span class="muted">Items:</span> <b id="cartItemsCount">0</b> · <span class="muted">Total:</span> <b id="cartTotal">$0</b></div>
-<button class="btn primary" id="checkout">Enviar pedido</button>
-<button class="btn ghost" id="clearCart">Vaciar carrito</button>
-<div class="muted">Al enviar se generará un código de pedido para seguimiento.</div>
-</div>
-</div>
-</div>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SYX Mayoristas – Pedidos</title>
+  <link href="https://fonts.googleapis.com/css2?family=Calistoga&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/qhNvaL.css">
+</head>
+<body>
+  <header>
+    <div class="hdr container">
+      <div class="logo">
+        <img id="logo" alt="Logo SYX"/>
+        <div class="brand"> </div> <!-- Texto entre logo y buscador -->
+      </div>
+      <div class="search">
+        <input id="search" type="search" placeholder="Buscar por nombre o código…" />
+        <span class="icon">🔎</span>
+      </div>
+      <button class="cart-btn" id="openCart">🛒 Carrito <span class="pill" id="cartCount">0</span></button>
+    </div>
+  </header>
 
+  <main class="container">
+    <div class="hero" id="hero">
+      <img id="heroImg" alt="Banner"/>
+      <div class="dotz" id="heroDots"></div>
+    </div>
 
-<a id="waFab" class="fab" target="_blank" rel="noopener">💬 WhatsApp</a>
+    <div class="note">Precios con <b>IVA incluido</b>. El stock se muestra como disponible, pero ante cualquier excepción se ajustará al armar el presupuesto.</div>
 
+    <h2 class="section">Categorías</h2>
+    <div id="cats" class="cats"></div>
 
-<div class="modal" id="modal">
-<div class="sheet">
-<div class="hd"><strong>Finalizar pedido</strong><button class="btn ghost" id="closeModal">✕</button></div>
-<div class="bd">
-<form id="form">
-<div class="two">
-<div>
-<label>CUIT/DNI</label>
-<input id="f_cuit" required placeholder="20-12345678-9 / 12345678" />
-</div>
-<div>
-<label>Razón social / Nombre y apellido</label>
-<input id="f_razon" required placeholder="Empresa SRL / Juan Pérez" />
-</div>
-<div>
-<label>Correo electrónico</label>
-<input id="f_mail" type="email" required placeholder="correo@empresa.com" />
-</div>
-<div>
-<label>Celular</label>
-<input id="f_cel" required placeholder="11 1234 5678" />
-</div>
-<div style="grid-column:1/-1">
-<label>Mensaje / Descripción (opcional)</label>
-<textarea id="f_msg" placeholder="Ej: Necesito cotización para 10 unidades. Enviar disponibilidad."></textarea>
-</div>
-</div>
-<div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
-<button class="btn primary" type="submit">Generar código y enviar</button>
-<button class="btn ghost" type="button" id="copyOrder">Copiar resumen</button>
-</div>
-</form>
-<div id="orderResult" style="margin-top:12px;display:none">
-<div class="note">
-<div><b>Pedido generado:</b> <span class="badge" id="orderCode">—</span></div>
-<div id="orderSummary" style="margin-top:8px;white-space:pre-wrap;font-family:ui-monospace,Menlo,monospace"></div>
-<div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
-<a id="waLink" class="btn" style="background:#25D366;color:#fff" target="_blank" rel="noopener">Enviar por WhatsApp</a>
-<button id="closeOk" class="btn ghost" type="button">Listo</button>
-</div>
-</div>
-</div>
-<div class="muted" style="margin-top:10px">Tus datos se usan sólo para gestionar tu pedido. Puedes rastrearlo con tu código.</div>
-</div>
-</div>
-</div>
+    <div id="chips" class="chips"></div>
+    <h2 class="section">Todos los productos</h2>
+    <div id="grid" class="grid"></div>
+  </main>
 
+  <!-- Drawer Carrito -->
+  <div class="drawer">
+    <div class="drawer-panel" id="panel">
+      <div class="panel-hdr">
+        <strong>Tu pedido</strong>
+        <button id="closeCart" class="btn ghost" style="padding:8px 10px">✕</button>
+      </div>
+      <div class="panel-body" id="cartItems"></div>
+      <div class="panel-ftr">
+        <div><span class="muted">Items:</span> <b id="cartItemsCount">0</b> · <span class="muted">Total:</span> <b id="cartTotal">$0</b></div>
+        <button class="btn primary" id="checkout">Enviar pedido</button>
+        <button class="btn ghost" id="clearCart">Vaciar carrito</button>
+        <div class="muted">Al enviar se generará un código de pedido para seguimiento.</div>
+      </div>
+    </div>
+  </div>
 
-<footer class="container">
-<div>© <span id="yy"></span> SYX. Contacto: <a id="waFooter" target="_blank" rel="noopener">WhatsApp 11 2749 4568</a></div>
-</footer>
+  <!-- WhatsApp FAB -->
+  <a id="waFab" class="fab" target="_blank" rel="noopener">WhatsApp</a>
 
+  <!-- Modal Checkout -->
+  <div class="modal" id="modal">
+    <div class="sheet">
+      <div class="hd"><strong>Finalizar pedido</strong><button class="btn ghost" id="closeModal">✕</button></div>
+      <div class="bd">
+        <form id="form">
+          <div class="two">
+            <div>
+              <label>CUIT/DNI</label>
+              <input id="f_cuit" required placeholder="20-12345678-9 / 12345678" />
+            </div>
+            <div>
+              <label>Razón social / Nombre y apellido</label>
+              <input id="f_razon" required placeholder="Empresa SRL / Juan Pérez" />
+            </div>
+            <div>
+              <label>Correo electrónico</label>
+              <input id="f_mail" type="email" required placeholder="correo@empresa.com" />
+            </div>
+            <div>
+              <label>Celular</label>
+              <input id="f_cel" required placeholder="11 1234 5678" />
+            </div>
+            <div style="grid-column:1/-1">
+              <label>Mensaje / Descripción (opcional)</label>
+              <textarea id="f_msg" placeholder="Ej: Necesito cotización para 10 unidades. Enviar disponibilidad."></textarea>
+            </div>
+          </div>
+          <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+            <button class="btn primary" type="submit">Generar código y enviar</button>
+            <button class="btn ghost" type="button" id="copyOrder">Copiar resumen</button>
+          </div>
+        </form>
+        <div id="orderResult" style="margin-top:12px;display:none">
+          <div class="note">
+            <div><b>Pedido generado:</b> <span class="badge" id="orderCode">—</span></div>
+            <div id="orderSummary" style="margin-top:8px;white-space:pre-wrap;font-family:ui-monospace,Menlo,monospace"></div>
+            <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+              <a id="waLink" class="btn" style="background:#25D366;color:#fff" target="_blank" rel="noopener">Enviar por WhatsApp</a>
+              <button id="closeOk" class="btn ghost" type="button">Listo</button>
+            </div>
+          </div>
+        </div>
+        <div class="muted" style="margin-top:10px">Tus datos se usan sólo para gestionar tu pedido. Puedes rastrearlo con tu código.</div>
+      </div>
+    </div>
+  </div>
 
-<!-- Cargar primero DATOS y luego APP -->
-<script src="assets/js/mZuYtR.js"></script>
-<script src="assets/js/rTsQpA.js"></script>
+  <footer class="container">
+    <div>© <span id="yy"></span> SYX. Contacto: <a id="waFooter" target="_blank" rel="noopener">WhatsApp 11 2749 4568</a></div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="assets/js/mZuYtR.js"></script>
+  <script src="assets/js/rTsQpA.js"></script>
 </body>
 </html>
+ 
